@@ -3,7 +3,23 @@ package com.outsera.awards.golden_raspberry_awards.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "filme")
 public class Filme {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Integer ano;
@@ -11,6 +27,9 @@ public class Filme {
     private String estudios;
     private boolean vencedor;
 
+    @ManyToMany(cascade = { CascadeType.PERSIST,
+            CascadeType.MERGE }, fetch = FetchType.EAGER)
+    @JoinTable(name = "filme_produtor", joinColumns = @JoinColumn(name = "filme_id"), inverseJoinColumns = @JoinColumn(name = "produtor_id"))
     private Set<Produtor> produtores = new HashSet<>();
 
     public Filme() {
@@ -106,7 +125,8 @@ public class Filme {
 
     @Override
     public String toString() {
-        return "Filme [id=" + id + ", ano=" + ano + ", titulo=" + titulo + ", estudios=" + estudios + ", vencedor="
+        return "Filme [id=" + id + ", ano=" + ano + ", titulo=" + titulo
+                + ", estudios=" + estudios + ", vencedor="
                 + vencedor + "]";
     }
 
