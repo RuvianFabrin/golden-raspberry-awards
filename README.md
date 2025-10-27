@@ -48,7 +48,7 @@ mvn -v
 # Na pasta do projeto execute
 chmod +x mvnw
 
-# Depois execute o comando abaixo para rodar o teste
+# Depois execute o comando abaixo para executar
 ./mvnw spring-boot:run
 
 # Ou se você instalou o maven (serve para windows e linux)
